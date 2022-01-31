@@ -23,10 +23,10 @@ public class Order {
     @JoinColumn(name = "member_id") //포링키
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL) // cascade는 퍼시스트를 전파함 연관된 아이템 같이 퍼싯됨
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -35,7 +35,28 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status; //주문 상태 (ORDER ,CANCEL)
 
+    //==연관관계 메서드==//
+    public void setMember(Member member) {
+        this.member = member;
+        member.getOrders().add(this);
+    }
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
 
+    public void serDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
+
+    //원래 하나하나 다 entity를 셋팅 해줘야하는데
+//    public static void main(String[] args) {
+//        Member member = new Member();
+//        Order order = new Order();
+//        member.getOrders().add(order);
+//        order.setMember(member);
+//    }
 
 }
 

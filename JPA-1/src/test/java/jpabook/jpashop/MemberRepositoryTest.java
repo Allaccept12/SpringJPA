@@ -14,8 +14,6 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 class MemberRepositoryTest {
 
-    @Autowired MemberRepository memberRepository;
-
 
     @AfterEach
     void afterEach() {
@@ -24,17 +22,10 @@ class MemberRepositoryTest {
 
     @Test
     @Transactional
-//    @Rollback(false)
     void testMember() {
-        //g
-        Member member = new Member();
-        member.setUsername("memberA");
-        //w
-        Long saveId = memberRepository.save(member);
-        Member findMember = memberRepository.find(saveId);
-        //d
-        assertThat(findMember.getId()).isEqualTo(saveId);
-        assertThat(findMember).isEqualTo(member);
+
     }
+
+
 
 }
