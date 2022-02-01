@@ -20,6 +20,13 @@ public class ItemService {
     public void saveItem(Item item) {
         itemRepository.save(item);
     }
+    @Transactional
+    public void updateItem(UpdateItemDto itemDto) {
+        Item findItem = itemRepository.findOne(itemDto.getId());
+        findItem.setName(itemDto.getName());
+        findItem.setPrice(itemDto.getPrice());
+        findItem.setStockQuantity(itemDto.getStockQuantity());
+    }
 
     public List<Item> findItems() {
         return itemRepository.findAll();
@@ -28,4 +35,6 @@ public class ItemService {
     public Item findOne(Long itemId) {
         return itemRepository.findOne(itemId);
     }
+
+
 }
