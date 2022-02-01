@@ -1,11 +1,13 @@
 package jpabook.jpashop.controller;
 
 
+import jpabook.jpashop.domain.Member;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NotFound;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Getter @Setter
 public class MemberForm {
@@ -15,4 +17,5 @@ public class MemberForm {
     private String city;
     private String street;
     private String zipcode;
+    //private List<Member> memberList;
 }
