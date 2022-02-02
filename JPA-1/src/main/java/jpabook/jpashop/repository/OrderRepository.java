@@ -71,6 +71,28 @@ public class OrderRepository {
     }
 
 
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d " +
+                        "join fetch o.orderItems oi " +
+                        "join fetch oi.item i",Order.class)
+                .getResultList();
+
+
+    }
+
+    public List<Order> findAllWithMemberDelibery(int offset, int limit) {
+        return em.createQuery(
+                "select o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d",Order.class) //xToOne 은 페치조인 진행
+                .setFirstResult(offset) // 뒤에 xToMany를 배치사이즈 옵션으로 조절
+                .setMaxResults(limit)
+                .getResultList();
+
+    }
 }
 
 
