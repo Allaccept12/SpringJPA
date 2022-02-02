@@ -2,12 +2,11 @@ package jpabook.jpashop.controller;
 
 
 import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.item.Item;
-import jpabook.jpashop.domain.repository.OrderSearch;
-import jpabook.jpashop.domain.service.ItemService;
-import jpabook.jpashop.domain.service.MemberService;
-import jpabook.jpashop.domain.service.OrderService;
+import jpabook.jpashop.repository.OrderSearch;
+import jpabook.jpashop.service.ItemService;
+import jpabook.jpashop.service.MemberService;
+import jpabook.jpashop.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,8 +41,8 @@ public class OrderController {
 
     @GetMapping("/orders")
     public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
-        List<Order> orders = orderService.findOrders(orderSearch);
-        model.addAttribute("orders", orders);
+//        List<Order> orders = orderService.findOrders(orderSearch);
+//        model.addAttribute("orders", orders);
 
         return "/order/orderList";
     }
