@@ -29,12 +29,12 @@ public class OrderApiContorller {
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1() {
         List<Order> all = orderRepository.findAllByCriteria(new OrderSearch());
-        for (Order order : all) {
+        all.forEach(order -> {
             order.getMember().getName();
             order.getDelivery().getAddress();
             List<OrderItem> orderItems = order.getOrderItems();
             orderItems.stream().forEach(o -> o.getItem().getName());
-        }
+        });
         return all;
     }
 
@@ -54,11 +54,11 @@ public class OrderApiContorller {
     }
     @GetMapping("/api/v3.1/orders") // 컬렉션
     public List<OrderDto> ordersV3_page(
-            @RequestParam(value = "offset",defaultValue = "0") int offset,
+            @RequestParam(value  = "offset",defaultValue = "0") int offset,
             @RequestParam(value = "limit",defaultValue = "100") int limit) {
         List<Order> orders = orderRepository.findAllWithMemberDelibery(offset,limit);
         return orders.stream()
-                .map(OrderDto::new)
+                .map(order -> new OrderDto(order))
                 .collect(Collectors.toList());
     }
 

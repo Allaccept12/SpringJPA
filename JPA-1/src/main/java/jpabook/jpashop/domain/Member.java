@@ -17,7 +17,6 @@ public class Member {
     @Column(name= "member_id")
     private Long id;
 
-
     private String name;
 
     @Embedded //내장 타입을 포함했음
@@ -25,9 +24,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member") //매핑 거울
     private List<Order> orders = new ArrayList<>();
-
-
-
 
 
 }
