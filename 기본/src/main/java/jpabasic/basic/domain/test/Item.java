@@ -1,23 +1,21 @@
-package jpabasic.basic.domain;
+package jpabasic.basic.domain.test;
 
-
-import lombok.Getter;
-import lombok.Setter;
+import jpabasic.basic.domain.Category;
+import jpabasic.basic.domain.TimeStamped;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
-@Getter @Setter
-public class Item {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn // 데이터 타입 이 어떤게 들어오는지 확인
+public abstract class Item extends TimeStamped {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ITEM_ID")
     private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
